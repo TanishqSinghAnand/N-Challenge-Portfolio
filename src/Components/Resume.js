@@ -1,5 +1,5 @@
 import React from "react";
-
+import './Resume.css'
 const Resume = ({ data }) => {
   if (data) {
     var skillmessage = data.skillmessage;
@@ -9,29 +9,21 @@ const Resume = ({ data }) => {
           <h3>{education.school}</h3>
           <p className="info">
             {education.degree} <span>&bull;</span>
-            <em className="date">{education.graduated}</em>
+            <em className="date">{education.class}</em>
           </p>
-          <p>{education.description}</p>
-        </div>
-      );
-    });
-    var work = data.work.map(function (work) {
-      return (
-        <div key={work.company}>
-          <h3>{work.company}</h3>
-          <p className="info">
-            {work.title}
-            <span>&bull;</span> <em className="date">{work.years}</em>
-          </p>
-          <p>{work.description}</p>
         </div>
       );
     });
     var skills = data.skills.map(function (skills) {
+      var ml;
       var className = "bar-expand " + skills.name.toLowerCase();
+        if (window.innerWidth >= 760){ ml = window.innerWidth/2 ;}
+        else{ml = parseInt(skills.ml) + 200;}
       return (
         <li key={skills.name}>
-          <span style={{ width: skills.level }} className={className}></span>
+          <span style={{ width: skills.level }} className={className}>
+          </span>
+
           <em>{skills.name}</em>
         </li>
       );
@@ -54,16 +46,6 @@ const Resume = ({ data }) => {
         </div>
       </div>
 
-      <div className="row work">
-        <div className="three columns header-col">
-          <h1>
-            <span>Work</span>
-          </h1>
-        </div>
-
-        <div className="nine columns main-col">{work}</div>
-      </div>
-
       <div className="row skill">
         <div className="three columns header-col">
           <h1>
@@ -72,10 +54,8 @@ const Resume = ({ data }) => {
         </div>
 
         <div className="nine columns main-col">
-          <p>{skillmessage}</p>
-
           <div className="bars">
-            <ul className="skills">{skills}</ul>
+            <ul className="skills">{skills} </ul>
           </div>
         </div>
       </div>
